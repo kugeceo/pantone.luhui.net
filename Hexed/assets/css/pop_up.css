@@ -1,0 +1,214 @@
+.glyphicon.glyphicon-heart {
+  font-size: 25px;
+  padding: 10px;
+  padding-right:12px;
+  padding-top:12px;
+  color: #fff;
+  background-color:black;
+  border-radius: 30px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.glyphicon.glyphicon-heart:hover {
+  background-color: black;
+  color:#F65C6C;
+}
+
+.glyphicon.glyphicon-envelope {
+  text-align: center;
+  font-size: 25px;
+  padding-top:6px;
+  right:0px;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.glyphicon.glyphicon-envelope:hover {
+  color:#F65C6C; 
+}
+
+i.fi-magnifying-glass {
+  margin-left: 160%;
+  text-decoration: none;
+  text-align: center;
+  font-size:40px;
+  color:black;
+  cursor: pointer;
+}
+
+i.fi-magnifying-glass:hover {
+  text-decoration: none;
+  color:#F65C6C;
+  cursor: pointer;
+}
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
+
+.modal-content {
+    position: fixed;
+    height:100%;
+    width: 26%;
+    right: 0;
+    background-color: #EBF4D2;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    -webkit-transform: translateZ(0)
+    animation-name: slideIn;
+    animation-duration: 0.4s
+}
+
+.modal-body {
+    background-image: url("http://i.imgur.com/rV36svh.gif");
+    height:100%;
+    padding: 2px 16px;
+    text-align: center;
+    font-family: Arvo;
+    color: black;
+}
+
+div#codes p {
+  word-spacing: 3px;
+}
+
+div#userLikeSaved {
+  text-align: center;
+  font-family: helvetica;
+  font-size:20px;
+}
+
+#myform {
+  top:50%;
+  right:2%;
+  font-family: helvetica;
+}
+
+#message_html {
+  resize: none;
+  height:200px;
+  width:96%;
+  font-size: 10px;
+}
+
+.userInput {
+    text-align: center;
+    position: absolute;
+    top: 0px;
+    width:94%;
+}
+
+.usericonbox {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 50px;
+    height: 40px;
+    background-color: #000;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.usericonbox2 {
+    position: absolute;
+    top: 225px;
+    right: 0px;
+    width: 50px;
+    height: 40px;
+    background-color: #000;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.userInput input {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-size: 1em;
+    height: 40px;
+    border-radius: 6px;
+    border: 0px;
+    box-shadow: 0px 0px 5px 0px rgba(120,120,120,0.5);
+    outline:none;
+}
+
+button {
+  outline:none;
+  border:none;
+}
+
+.gsc-control-cse {
+  margin-left:0px;
+  text-align:justify;
+  background-color:white !important;
+  border: none !important;
+  width:100% !important;
+}
+
+.gsc-control-cse div {
+  border:none;
+}
+
+input.gsc-search-button {
+  border-color: none !important;
+  background-color: black !important;
+  background-image: none !important;
+  filter: none !important;
+  height: 25px !important;
+  width:1px !important;
+  border-top-right-radius: 6px !important;
+  border-bottom-right-radius: 6px !important;
+  outline:none;
+}
+
+.gsc-input {
+  padding-right: 0px !important;
+}
+
+.close {
+    color: black;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #FFA182;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@-webkit-keyframes slideIn {
+    from {bottom: -300px; opacity: 0} 
+    to {bottom: 0; opacity: 1}
+}
+
+@keyframes slideIn {
+    from {bottom: -300px; opacity: 0}
+    to {bottom: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+}

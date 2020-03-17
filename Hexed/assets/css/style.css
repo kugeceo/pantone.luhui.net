@@ -1,0 +1,87 @@
+body {
+	background-color:#FEFAFC;
+    background-image: url("http://i.imgur.com/RivtLBx.jpg");
+    background-size: cover;
+}
+
+h1:hover {
+    color:#F65C6C;
+    cursor: pointer;
+}
+
+.jumbotron {
+	background:none;
+	background-size:cover;
+    font-family: Arvo;
+    font-size: 30px;
+    padding-right:600px;
+    padding-bottom: 5%;
+}
+
+.hashtag {
+    font-family: Arvo;
+    font-size:70px;
+}
+
+.fa.fa-caret-down {
+    color:white;
+    padding-top:5px;
+    font-size: 30px;
+}
+
+.fa.fa-caret-down:hover,
+.fa.fa-caret-down:focus {
+    color: #F65C6C;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.urlSearch {
+    text-align: center;
+    position: absolute;
+    width:100%;
+    outline: none;
+}
+
+.urlSearch input {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-size: 1em;
+    color:#8E8E8E;
+    height: 40px;
+    border-radius: 6px;
+    border: 0px;
+    box-shadow: 0px 0px 5px 0px rgba(120,120,120,0.5);
+    outline: none;
+}
+
+img {
+    height:auto;
+    width: 130%;
+    padding-top: 10%;
+}
+
+.moveRight {
+	margin-left: 200px;
+    padding-top:10%;
+}
+
+.btn.btn-secondary.btn-lg {
+    background-color: #FDF8F8; 
+    border: 5px solid #fff;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    font-size: 30px;
+    margin: 4px 4px;
+    cursor: pointer;
+    height:100px;
+    width: 200px;
+}
+
+.btn.btn-secondary.btn-lg:hover {
+    color:#fff;
+}
+
+

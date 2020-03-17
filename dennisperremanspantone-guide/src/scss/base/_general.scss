@@ -1,0 +1,14 @@
+* {
+	font-family: $base-font;
+}
+
+html,
+body {
+	margin: 0;
+	@include fs(17px);
+	color: $text-color;
+}
+
+.text--center {
+	text-align: center;
+}

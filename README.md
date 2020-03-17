@@ -10,6 +10,7 @@
 
 
 
+
 搜索调用模式
 
 index.html?q=关键词
@@ -40,9 +41,6 @@ index.html?q=关键词
                                 }
             }
             </script>
-
-
-
 
 
 

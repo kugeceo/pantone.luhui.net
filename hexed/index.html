@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Hexed</title>
+
+<link href="https://fonts.googleapis.com/css?family=Arvo|Playfair+Display" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/pop_up.css">
+
+	
+</head>
+<body>
+
+<div>
+	<header class="jumbotron">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<h1 id="#hexedLogo"><span class="hashtag">#</span>exed</h1>
+				</div>
+
+				<div class="col-md-5"></div>
+
+				<div class="col-md-4">
+					<div>
+						<i id="searchBar" class="fi-magnifying-glass"></i>
+						<!-- <form id="imageSearch">
+							<input id="inputBar" type="search">	
+						</form>	 -->
+					</div>
+				</div>	
+			</div>
+		</div>
+	</header>
+
+</div>
+
+<div class="container">
+	<div class="row">
+
+		<div class="col-md-4">
+			<div class="urlSearch">
+				<form id="url_get">
+					<input type="text" id="url_input"/>
+					<i type="submit" id="get_palette" class="fa fa-caret-down usericonbox"></i>
+				</form>
+			</div>
+			<br><br>
+			<div id="Last_Palette">
+				<img id="loadingGif" src="http://i.imgur.com/WuEu5qj.gif">
+			</div>
+		</div>
+		
+		<div class="col-md-8">
+			<div class="moveRight">
+				<p>
+					<button id="primaryHex" type="button" class="btn btn-secondary btn-lg">#FDF8F8</button>
+					<button id="primaryPantone" type="button" class="btn btn-secondary btn-lg">#FDF8F8</button>
+				</p>
+				<p>
+					<button id="secondaryHex" type="button" class="btn btn-secondary btn-lg">#FDF8F8</button>
+					<button id="secondaryPantone" type="button" class="btn btn-secondary btn-lg">#FDF8F8</button>
+				</p>
+				<p>
+					<button id="tertiaryHex" type="button" class="btn btn-secondary btn-lg">#FDF8F8</button>
+					<button id="tertiaryPantone" type="button" class="btn btn-secondary btn-lg">#FDF8F8</button>
+				</p>
+				<br>
+				<div id="userLike" class="glyphicon glyphicon-heart"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+<div class="modal-content">
+	<div class="modal-body">
+    	<span class="close">&times;</span>
+		<br><br>
+		<div id="gcse">
+			<gcse:search></gcse:search>
+		</div>
+		<br><br><br>
+		<div id="codes">
+			<br>
+			<p>COPY AND PASTE HEX CODES</p>
+			<div id="userLikeSaved"></div>
+			<br>
+			<p>FOR COMPLETE LIST ENTER EMAIL BELOW</p>
+		</div>
+
+		
+		<form id="myform" class="userInput" method="post">
+			<textarea name="message_html" id="message_html"></textarea>
+			<br><br>
+			<input type="text" name="from_name" id="from_name" value="Enter Email"/>
+			<button id="sendEmail" class="usericonbox2"><span class= "glyphicon glyphicon-envelope"></span></button>
+		</form>
+    </div>
+</div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script type="text/javascript" src="assets/javascript/script.js"></script>
+<script src="assets/javascript/pop_up.js"></script>
+
+</body>
+</html>

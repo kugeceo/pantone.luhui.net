@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+ 
+<html>
+ 
+<head>
+ 
+    <title>Peek - color picker</title>
+    
+    <link rel="icon" 
+      type="image/png" 
+      src="favicon.ico"> </link>
+      
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"></link>
+    
+    <style type="text/css"> 
+    body {
+    	font-size: 14pt; font-family: copperplate, impact; background-image: url("bgimage.png"); background-repeat:no-repeat; background-position: 48% 0%;
+    }
+    
+    .Matchingto {
+    	font-size: 12pt;
+    }
+    input {
+	// position:absolute; top: -200px;
+	} 
+    button {
+    	width:80%; height: 200px;
+    }	
+    input {
+    	 width:80%; height: 200px;
+    }	
+    
+     
+	.start {
+		-moz-box-shadow:inset 0px 1px 0px 0px #d197fe;
+		-webkit-box-shadow:inset 0px 1px 0px 0px #d197fe;
+		box-shadow:inset 0px 1px 0px 0px #d197fe;
+		background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #a53df6), color-stop(1, #7c16cb) );
+		background:-moz-linear-gradient( center top, #a53df6 5%, #7c16cb 100% );
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#a53df6', endColorstr='#7c16cb');
+		background-color:#a53df6;
+		-webkit-border-top-left-radius:9px;
+		-moz-border-radius-topleft:9px;
+		border-top-left-radius:9px;
+		-webkit-border-top-right-radius:9px;
+		-moz-border-radius-topright:9px;
+		border-top-right-radius:9px;
+		-webkit-border-bottom-right-radius:9px;
+		-moz-border-radius-bottomright:9px;
+		border-bottom-right-radius:9px;
+		-webkit-border-bottom-left-radius:9px;
+		-moz-border-radius-bottomleft:9px;
+		border-bottom-left-radius:9px;
+		text-indent:0;
+		border:1px solid #9c33ed;
+		display:inline-block;
+		color:#ffffff;
+		
+		font-size:15px;
+		font-style:normal;
+		height:65px;
+		line-height:65px;
+		width:131px;
+		text-decoration:none;
+		text-align:center;
+		text-shadow:1px 1px 0px #7d15cd;
+	}
+	.start:hover {
+		background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #7c16cb), color-stop(1, #a53df6) );
+		background:-moz-linear-gradient( center top, #7c16cb 5%, #a53df6 100% );
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#7c16cb', endColorstr='#a53df6');
+		background-color:#7c16cb;
+	}.start:active {
+		position:relative;
+		top:1px;
+	}
+	    
+    </style>
+    
+    
+    <script src="http://code.jquery.com/jquery-1.11.0.js"></script>
+    <script src="js/pms.js" type="text/javascript"></script>
+    <script src="js/colorconverter.js" type="text/javascript"></script>
+	<script>
+	/*
+	$("#upbutton").click(function() {
+		$("#fileToUpload").click();
+	})
+	
+	$('#fileToUpload').change(function() {
+		fileSelected();
+		// $('#uploadNow').submit();
+	});
+	*/
+	
+	$(document).ready(function(){
+		resizeDiv();
+		 $('#trigger').click();
+	});
+	
+	window.onresize = function(event) {
+		resizeDiv();
+	};
+	
+	var resizeDiv = function(){
+		vpw = $(window).width();
+		vph = $(window).height();
+		$('#results').css({'height': '99%', 'width': '100%', 'valign': 'top'});
+		$('#dmsg').css({'width': '90%', 'valign': 'top'});
+		$('#Matchingto').css({'width': '90%', 'valign': 'top'});
+
+
+	};
+	
+	
+	function handleMouseMove(e) {
+	console.log(e);
+		    mouseX = parseInt(e.clientX - offsetX);
+		    mouseY = parseInt(e.clientY - offsetY);
+		    var canvas = $("#canvas").get(0);
+		    var ctx = canvas.getContext("2d");
+		    		    console.log(ctx);
+
+		    ctx.clearRect(0, 0, canvas.width, canvas.height);
+		    ctx.putImageData(backcanvas, 0, 0);
+		    // ctx.drawImage(img, 0, 0);
+		    ctx.beginPath();
+		    ctx.moveTo(mouseX, 0);
+		    ctx.lineTo(mouseX, canvas.height);
+		    ctx.moveTo(0, mouseY);
+		    ctx.lineTo(canvas.width, mouseY);
+		    ctx.stroke();
+
+
+	}
+	var canvasOffset,offsetX,offsetY,canvas,ctx,backcanvas;
+					
+	var activate = function(){
+		$.fn.canvas = function(f){
+			return this.map(function(){
+				if (this.nodeName=="IMG"){
+					var canvas=$('<canvas id="canvas">')
+					this.src = this.src // IE fix
+					$(this).one('load',function(){
+						canvas.attr({width:this.width,height:this.height})
+						canvas[0].getContext('2d').drawImage(this,0,0,this.width,this.height)
+						$(this).replaceWith(canvas)
+						backcanvas=canvas[0].getContext('2d').getImageData(0,0,this.width,this.height);
+
+					})
+					canvasOffset = canvas.offset();
+					 offsetX = canvasOffset.left;
+					 offsetY = canvasOffset.top;
+
+					return canvas[0]
+				}else{
+					return this
+				}
+			})
+		}
+		jQuery.Event.prototype.rgb=function(){
+			var x =  this.offsetX || (this.pageX - $(this.target).offset().left),
+				y =  this.offsetY || (this.pageY - $(this.target).offset().top)
+			if (this.target.nodeName!=="CANVAS")return null
+			var cData = this.target.getContext('2d').getImageData(x,y,3,3).data;
+			var mr = Math.round((cData[0] + cData[4] + cData[8] + cData[12] + cData[16] + cData[20] + cData[24]+ cData[28]+ cData[32]) / 9 );
+			var mg = Math.round((cData[1] + cData[5] + cData[9] + cData[13] + cData[17]+ cData[21]+ cData[25]+ cData[29]+ cData[33]) / 9) ;
+			var mb = Math.round((cData[2] + cData[6] + cData[10] + cData[14] + cData[18]+ cData[22]+ cData[26]+ cData[30]+ cData[34]) / 9) ;
+			var hex = dec2hex(mr) + dec2hex(mg) + dec2hex(mb);
+			// var m = PMSColorMatching(hex,document.getElementById('proximity').value);
+			var m = PMSColorMatching(hex,32);
+			
+			document.getElementById('Matchingto').innerHTML = 
+			  'PMS colors near to RGB color #' + hex 
+			  + '&nbsp;<span style="background-color:#'+ hex +';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> ' +
+			  ' RGB('+ mr +','+ mg +','+ mb +')';
+			
+			var m2 = '';
+			if ((m.length) > 0){
+			  m2 = '<table border="0" cellpadding="3">';
+			  var ipms = 0;
+			  var mtr = Math.ceil(m.length / 5);
+			  for(var i=0; i < mtr ;i++){
+			    m2 = m2 + '<tr align="center" style="font-family:copperplate,impact;font-size:10px;">';          
+			    for(var j=0; j < 5 ;j++){
+			      m2 = m2 + '<td><div>' ;
+			      if (ipms < m.length){
+			        rgbcode = PMS2RGB(m[ipms]);
+			   
+			        m2 = m2 + m[ipms] + '</div><div title="' + rgbcode + '" style="background-color:#' + rgbcode + ';height:40px;width:40px;-moz-border-radius: 20px; border-radius: 20px; box-shadow: 0px 0px 3pt 2pt black; margin: 4px;">&nbsp;';
+			        ipms = ipms + 1;            
+			      } 
+			      m2 = m2 + '</div></td>';          
+			    }
+			    m2 = m2 + '</tr>';          
+			  }
+			  m2 = m2 + '</table>';      
+			}
+			//console.log('m2',m2);
+			document.getElementById('dmsg').innerHTML = m2 ;
+			return this.target.getContext('2d').getImageData(x,y,1,1).data
+		}
+		
+		jQuery.Event.prototype.getmtn=function(){
+	var x =  this.offsetX || (this.pageX - $(this.target).offset().left),
+				y =  this.offsetY || (this.pageY - $(this.target).offset().top)
+			if (this.target.nodeName!=="CANVAS")return null
+			var cData = this.target.getContext('2d').getImageData(x,y,3,3).data;
+			var mr = Math.round((cData[0] + cData[4] + cData[8] + cData[12] + cData[16] + cData[20] + cData[24]+ cData[28]+ cData[32]) / 9 );
+			var mg = Math.round((cData[1] + cData[5] + cData[9] + cData[13] + cData[17]+ cData[21]+ cData[25]+ cData[29]+ cData[33]) / 9) ;
+			var mb = Math.round((cData[2] + cData[6] + cData[10] + cData[14] + cData[18]+ cData[22]+ cData[26]+ cData[30]+ cData[34]) / 9) ;
+			var hex = dec2hex(mr) + dec2hex(mg) + dec2hex(mb);
+			// var m = PMSColorMatching(hex,document.getElementById('proximity').value);
+			var m = MTNColorMatching(hex,32);
+			
+			document.getElementById('Matchingto').innerHTML = 
+			  'MTN colors near to RGB color #' + hex 
+			  + '&nbsp;<span style="background-color:#'+ hex +';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> ' +
+			  ' RGB('+ mr +','+ mg +','+ mb +')';
+			
+			var m2 = '';
+			if ((m.length) > 0){
+			  m2 = '<table border="0" cellpadding="3">';
+			  var ipms = 0;
+			  var mtr = Math.ceil(m.length / 5);
+			  for(var i=0; i < mtr ;i++){
+			    m2 = m2 + '<tr align="center" style="font-family:copperplate,impact;font-size:10px;">';          
+			    for(var j=0; j < 5 ;j++){
+			      m2 = m2 + '<td><div>' ;
+			      if (ipms < m.length){
+			        rgbcode = MTN2RGB(m[ipms]);
+			   	var mtnname= RGB2NAM(rgbcode);
+			   	//console.log('debug:',rgbcode,mtnname);
+			   	if (mtnname) {
+			        m2 = m2 + mtnname + '</div><div title="' + mtnname+ '" style="background-color:#' + rgbcode + ';height:40px;width:40px;-moz-border-radius: 20px; border-radius: 20px; box-shadow: 0px 0px 3pt 2pt black; margin: 4px;">&nbsp;';
+			        }
+			        ipms = ipms + 1;            
+			      } 
+			      m2 = m2 + '</div></td>';          
+			    }
+			    m2 = m2 + '</tr>';          
+			  }
+			  m2 = m2 + '</table>';      
+			}
+			//console.log('m2',m2);
+			document.getElementById('dmsg').innerHTML = m2 ;
+			return this.target.getContext('2d').getImageData(x,y,1,1).data
+			
+		}
+		jQuery.Event.prototype.getmon=function(){
+	var x =  this.offsetX || (this.pageX - $(this.target).offset().left),
+				y =  this.offsetY || (this.pageY - $(this.target).offset().top)
+			if (this.target.nodeName!=="CANVAS")return null
+			var cData = this.target.getContext('2d').getImageData(x,y,3,3).data;
+			var mr = Math.round((cData[0] + cData[4] + cData[8] + cData[12] + cData[16] + cData[20] + cData[24]+ cData[28]+ cData[32]) / 9 );
+			var mg = Math.round((cData[1] + cData[5] + cData[9] + cData[13] + cData[17]+ cData[21]+ cData[25]+ cData[29]+ cData[33]) / 9) ;
+			var mb = Math.round((cData[2] + cData[6] + cData[10] + cData[14] + cData[18]+ cData[22]+ cData[26]+ cData[30]+ cData[34]) / 9) ;
+			var hex = dec2hex(mr) + dec2hex(mg) + dec2hex(mb);
+			// var m = PMSColorMatching(hex,document.getElementById('proximity').value);
+			var m = MONColorMatching(hex,32);
+			
+			document.getElementById('Matchingto').innerHTML = 
+			  'MONTANA colors near to RGB color #' + hex 
+			  + '&nbsp;<span style="background-color:#'+ hex +';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> ' +
+			  ' RGB('+ mr +','+ mg +','+ mb +')';
+			
+			var m2 = '';
+			if ((m.length) > 0){
+			  m2 = '<table border="0" cellpadding="3">';
+			  var ipms = 0;
+			  var mtr = Math.ceil(m.length / 5);
+			  for(var i=0; i < mtr ;i++){
+			    m2 = m2 + '<tr align="center" style="font-family:copperplate,impact;font-size:10px;">';          
+			    for(var j=0; j < 5 ;j++){
+			      m2 = m2 + '<td><div>' ;
+			      if (ipms < m.length){
+			        rgbcode = MON2RGB(m[ipms]);
+			   	var monname= RGB2MON(rgbcode);
+			   	//console.log('debug:',rgbcode,monname);
+			   	if (monname) {
+			        m2 = m2 + monname + '</div><div title="' + monname+ '" style="background-color:#' + rgbcode + ';height:40px;width:40px;-moz-border-radius: 20px; border-radius: 20px; box-shadow: 0px 0px 3pt 2pt black; margin: 4px;">&nbsp;';
+			        }
+			        ipms = ipms + 1;            
+			      } 
+			      m2 = m2 + '</div></td>';          
+			    }
+			    m2 = m2 + '</tr>';          
+			  }
+			  m2 = m2 + '</table>';      
+			}
+			//console.log('m2',m2);
+			document.getElementById('dmsg').innerHTML = m2 ;
+			return this.target.getContext('2d').getImageData(x,y,1,1).data
+			
+		}
+		
+		jQuery.Event.prototype.getmol=function(){
+	var x =  this.offsetX || (this.pageX - $(this.target).offset().left),
+				y =  this.offsetY || (this.pageY - $(this.target).offset().top)
+			if (this.target.nodeName!=="CANVAS")return null
+			var cData = this.target.getContext('2d').getImageData(x,y,3,3).data;
+			var mr = Math.round((cData[0] + cData[4] + cData[8] + cData[12] + cData[16] + cData[20] + cData[24]+ cData[28]+ cData[32]) / 9 );
+			var mg = Math.round((cData[1] + cData[5] + cData[9] + cData[13] + cData[17]+ cData[21]+ cData[25]+ cData[29]+ cData[33]) / 9) ;
+			var mb = Math.round((cData[2] + cData[6] + cData[10] + cData[14] + cData[18]+ cData[22]+ cData[26]+ cData[30]+ cData[34]) / 9) ;
+			var hex = dec2hex(mr) + dec2hex(mg) + dec2hex(mb);
+			// var m = PMSColorMatching(hex,document.getElementById('proximity').value);
+			var m = MOLColorMatching(hex,32);
+			
+			document.getElementById('Matchingto').innerHTML = 
+			  'MOLOTOW colors near to RGB color #' + hex 
+			  + '&nbsp;<span style="background-color:#'+ hex +';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> ' +
+			  ' RGB('+ mr +','+ mg +','+ mb +')';
+			
+			var m2 = '';
+			if ((m.length) > 0){
+			  m2 = '<table border="0" cellpadding="3">';
+			  var ipms = 0;
+			  var mtr = Math.ceil(m.length / 5);
+			  for(var i=0; i < mtr ;i++){
+			    m2 = m2 + '<tr align="center" style="font-family:copperplate,impact;font-size:10px;">';          
+			    for(var j=0; j < 5 ;j++){
+			      m2 = m2 + '<td><div>' ;
+			      if (ipms < m.length){
+			        rgbcode = MOL2RGB(m[ipms]);
+			   	var molname= RGB2MOL(rgbcode);
+			   	
+			   	if (molname) {
+			        m2 = m2 + molname + '</div><div title="' + molname+ '" style="background-color:#' + rgbcode + ';height:40px;width:40px;-moz-border-radius: 20px; border-radius: 20px; box-shadow: 0px 0px 3pt 2pt black; margin: 4px;">&nbsp;';
+			        }
+			        ipms = ipms + 1;            
+			      } 
+			      m2 = m2 + '</div></td>';          
+			    }
+			    m2 = m2 + '</tr>';          
+			  }
+			  m2 = m2 + '</table>';      
+			}
+			//console.log('m2',m2);
+			document.getElementById('dmsg').innerHTML = m2 ;
+			return this.target.getContext('2d').getImageData(x,y,1,1).data
+			
+		}
+		
+		$(function() {
+			$('img').canvas().click(function(e){
+				//console.log('canvas click',e);
+				handleMouseMove(e);
+                                var val = $('#dropdown').val();
+                                
+                                switch (val){
+                                
+                                	case ('pantone'):
+                                	$('body').css('null-color',"rgba("+Array.prototype.join.call(e.rgb(),',')+")")
+                                	break;
+                                	
+                                	case ('mtn'):
+                                	$('body').css('null-color',"rgba("+Array.prototype.join.call(e.getmtn(),',')+")")
+                                	break;
+                                	
+                                	case ('montana'):
+                                	$('body').css('null-color',"rgba("+Array.prototype.join.call(e.getmon(),',')+")")
+                                	break;
+                                	
+                                	case ('molotow'):
+                                	$('body').css('null-color',"rgba("+Array.prototype.join.call(e.getmol(),',')+")")
+                                	break;
+                                	
+                                	case ('ironlak'):
+                                	
+                                	break;
+                                	
+                                	case ('kobra'):
+                                	
+                                        break;     	
+                                	
+                        
+                                     }
+                                
+				
+			})
+		});
+	};
+	</script>
+	
+
+ 
+    <script type="text/javascript">
+ 	
+
+      var file;
+
+      function fileSelected() {
+ 
+        var count = document.getElementById('fileToUpload').files.length;
+ 
+              document.getElementById('details').innerHTML = "";
+ 
+              for (var index = 0; index < count; index ++)
+ 
+              {
+ 
+                     file = document.getElementById('fileToUpload').files[index];
+ 
+                     var fileSize = 0;
+ 
+                     if (file.size > 1024 * 1024)
+ 
+                            fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
+ 
+                     else
+ 
+                            fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
+ 
+                     document.getElementById('details').innerHTML += 'Name: ' + file.name + '<br>Size: ' + fileSize + '<br>Type: ' + file.type;
+ 
+                     document.getElementById('details').innerHTML += '<p>';
+                     $('#trigger').hide();
+                     $('#uploadNow').click();
+                     // $('#uploadNow').show();
+                      $('#selectLabel').hide();
+ 
+              }
+ 
+      }
+ 
+      function uploadFile() {
+ 
+        var fd = new FormData();
+ 
+              var count = document.getElementById('fileToUpload').files.length;
+ 
+              for (var index = 0; index < count; index ++)
+ 
+              {
+ 
+                     var file = document.getElementById('fileToUpload').files[index];
+ 
+                     fd.append('myFile', file);
+ 
+              }
+ 
+        var xhr = new XMLHttpRequest();
+ 
+        xhr.upload.addEventListener("progress", uploadProgress, false);
+ 
+        xhr.addEventListener("load", uploadComplete, false);
+ 
+        xhr.addEventListener("error", uploadFailed, false);
+ 
+        xhr.addEventListener("abort", uploadCanceled, false);
+ 
+        xhr.open("POST", "savetofile.php");
+ 
+        xhr.send(fd);
+ 
+      }
+ 
+      function uploadProgress(evt) {
+ 
+        if (evt.lengthComputable) {
+ 
+          var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+ 
+          document.getElementById('progress').innerHTML = '<font size="10em">' + percentComplete.toString() + '% </font>';
+ 
+        }
+ 
+        else {
+ 
+          document.getElementById('progress').innerHTML = 'unable to compute';
+ 
+        }
+ 
+      }
+ 
+      function uploadComplete(evt) {
+ 
+        /* This event is raised when the server send back a response */
+ 
+        // alert(evt.target.responseText);
+        $('#pre').hide();
+        document.getElementById('results').innerHTML = "<img src='store/"+file.name+"' style='width:99%;' alt='Loading...'/>";
+        activate();
+        $('#dropdown').show();
+ 	
+      }
+ 
+      function uploadFailed(evt) {
+ 
+        alert("There was an error attempting to upload the file.");
+ 
+      }
+ 
+      function uploadCanceled(evt) {
+ 
+        alert("The upload has been canceled by the user or the browser dropped the connection.");
+ 
+      }
+ 
+    </script>
+ 
+</head>
+ 
+<body>
+<center>
+
+ <div id="heading" style="height:0px;"></div>
+  <form id="form1" enctype="multipart/form-data" method="post" action="savetofile.php">
+ 
+  <div id="pre">
+    <div>
+ 
+      <label id="selectLabel" for="fileToUpload">Take or select photo(s)</label><br /><br /> 
+      <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();" accept="image/*;capture=camera" capture="camera" style="position:absolute;width:0px;height:0px;top:-500px;" />
+ 
+    </div>
+ 
+    <div id="details"></div>
+ 
+    <div>
+    
+    	<a href="#" class="start" onclick="$('#fileToUpload').click();" id="trigger" >Start</a>
+ 
+     <!-- <input type="button" onclick="$('#fileToUpload').click();" id="trigger" value="Choose File" /> -->
+      <input type="button" onclick="uploadFile();$('#uploadNow').hide();" id="uploadNow" value="Upload" style="display:none;" />
+
+ 
+    </div>
+ 
+    <div id="progress"></div>
+   </div>
+   
+   <div id="results"></div>
+   
+    <div> 
+   	<select name="dropdown" id="dropdown" style="display:none;" >
+   	 
+   		<option value="pantone">Pantone</option>
+   		<option value="montana">Montana</option>
+		  <option value="molotow">Molotow</option>
+		  <option value="kobra">Kobra</option>
+		  <option value="mtn">Mtn</option>
+		  <option value="ironlak">Ironlak</option>
+  	
+   	</select>
+   </div>
+   
+   <div id="Matchingto" class="Matchingto"></div>
+   
+  
+   
+   <div id="dmsg"></div>
+  
+  </form>
+</center>
+</body>
+ 
+</html>

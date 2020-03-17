@@ -1,16 +1,22 @@
 # pantone.luhui.net
 
 
+鲁虺网络潘通色卡云 http://pantone.luhui.net 鲁虺彩通色卡工具探索色彩的宇宙,发现色彩搭配、色值及互相参照包括RGB、CMYK、HEX及广色域参考色彩,分享至您的工作流程中与社群媒体上与luhui Creative Cloud、Instagram及其他更多的社群无缝接轨 
 
 
-
-
-
-
+代码运行在
 [![Netlify Status](https://api.netlify.com/api/v1/badges/e2e1698e-f85d-459d-a7d7-1382a70dc00c/deploy-status)](https://app.netlify.com/sites/pantone/deploys)
 
+免费域名演示地址
+http://pantone.netlify.com
 
 
+自定义域名演示地址
+http://pantone.luhui.net
+
+http://pantong.luhui.net/
+
+http://seka.luhui.net/
 
 
 搜索调用模式
